@@ -1,0 +1,23 @@
+
+. ${BOOTSTRAP_DIR}/utils
+
+SDL2_GFX_NAME=SDL2_gfx
+SDL2_GFX_VERSION=1.0.4
+SDL2_GFX_FILE=$SDL2_GFX_NAME-$SDL2_GFX_VERSION.tar.gz
+SDL2_GFX_FILE_PATH=$LIB_DIR/$SDL2_GFX_FILE
+SDL2_GFX_URL=http://www.ferzkopp.net/Software/SDL2_gfx/$SDL2_GFX_FILE
+# http://www.ferzkopp.net/Software/SDL2_gfx/SDL2_gfx-1.0.4.tar.gz
+
+TEST_FILE=$LIB_DIR/include/SDL2/SDL2_framerate.h
+skip_if_installed $TEST_FILE
+
+get_file $SDL2_GFX_FILE_PATH $SDL2_GFX_URL
+
+extract_tar_gz_if_not_exists $SDL2_GFX_FILE_PATH $SDL2_GFX_NAME-$SDL2_GFX_VERSION
+cd $SDL2_GFX_NAME-$SDL2_GFX_VERSION
+
+configure_std
+
+make_std
+
+make_install_std
