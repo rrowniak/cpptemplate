@@ -101,9 +101,10 @@ function git_clone()
 function cmake_gen()
 {
     echo "CMake generating..."
+    OPTIONS="$@"
     mkdir build
     cd build
-    cmdout=$(cmake .. -DCMAKE_INSTALL_PREFIX=$LIB_DIR 2>&1)
+    cmdout=$(cmake .. -DCMAKE_INSTALL_PREFIX=$LIB_DIR $OPTIONS 2>&1)
     if [ $? -ne 0 ]; then
         echo $cmdout
         error_exit
