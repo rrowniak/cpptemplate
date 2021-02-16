@@ -81,3 +81,33 @@ function make_install_std()
     fi
     echo "Done."
 }
+
+
+function git_clone()
+{
+    echo "git-cloning project..."
+    GIT_REPO=$1
+
+    cd $LIB_DIR
+
+    git clone --depth 1 -b master $GIT_REPO
+    if [ $? -ne 0 ]; then
+        echo "Can't get $GIT_REPO repo"
+        error_exit
+    fi
+    echo "Done."
+}
+
+function cmake_gen()
+{
+    echo "CMake generating..."
+    OPTIONS="$@"
+    mkdir build
+    cd build
+    cmdout=$(cmake .. -DCMAKE_INSTALL_PREFIX=$LIB_DIR $OPTIONS 2>&1)
+    if [ $? -ne 0 ]; then
+        echo $cmdout
+        error_exit
+    fi
+    echo "Done."
+}
